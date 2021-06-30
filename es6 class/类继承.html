@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>对象继承</title>
+</head>
+<body>
+  <script>
+    //es5 构造函数实现继承
+
+    function Phone(brand, price){
+      this.brand = brand;
+      this.price = price;
+    }
+
+    //通过原型对象添加方法
+    Phone.prototype.call = function (){
+      console.log('call')
+    }
+
+    //智能手机
+    function SmartPhone(brand, price, color, size){
+      //改变this
+      Phone.call(this, brand, price)
+      this.color = color;
+      this.size = size;
+    }
+    //设置子级构造函数的原型
+    SmartPhone.prototype = new Phone;
+
+    //声明子类的方法
+    SmartPhone.prototype.photo = function(){
+      console.log('photo')
+    }
+    SmartPhone.prototype.playGame = function(){
+      console.log('playGame')
+    }
+    
+    const chuizi = new SmartPhone('chuizi', 2499, 'black', '5.5inch')
+    console.log(chuizi)
+  </script>
+</body>
+</html>

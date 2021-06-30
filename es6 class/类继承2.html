@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>类继承-2</title>
+</head>
+<body>
+  <script>
+    class Phone{
+      constructor(brand, price){
+        this.brand = brand;
+        this.price = price;
+      }
+      call(){
+        console.log('call')
+      }
+    }
+    
+    class smartPhone extends Phone{
+      //构造方法
+      constructor(brand, price, color, size){
+        super(brand,price); //Phone.call(this, brand, price)
+        this.color = color;
+        this.size = size;
+      }
+      photo(){
+        console.log('phone')
+      }
+      playGame(){
+        console.log('playGame')
+      }
+      //子类对父类同名方法的重写
+      call(){
+        console.log('视频通话')
+      }
+    }
+
+    const xiaomi = new smartPhone('xiaomi', 799, 'black', '4.7inch')
+    console.log(xiaomi)
+  </script>
+</body>
+</html>

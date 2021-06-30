@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function mergeSort(arr){
+      let len  = arr.length;
+      if (!Array.isArray(arr) || len === 0) return;
+      if(len==1) return arr;
+      let mid = Math.floor(len / 2),
+      left = arr.slice(0,mid),
+      right = arr.slice(mid,len)
+      return merge(mergeSort(left), mergeSort(right))
+    }
+
+    function merge(left,right){
+      //将两个数组合并为一个排序后的数组返回
+      let result = []
+      let il = 0, ir = 0;
+      while(il < left.length && ir < right.length){
+        if(left[il] < right[ir]){
+          result.push(left[il++])
+        }else{
+          result.push(right[ir++])
+        }
+      }
+      while(il < left.length){
+        result.push(left[il++])
+      }
+      while(ir < right.length){
+        result.push(right[ir++])
+      }
+      return result
+    }
+    console.log(merge([1,23],[3,4]))
+    console.log(mergeSort([1,2,3,54,2,1,8]))
+  </script>
+</body>
+</html>

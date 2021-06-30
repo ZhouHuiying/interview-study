@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul id="parent-list">
+    <li><a href="javascript:;" class="my_link">超链接一</a></li>
+    <li><a href="javascript:;" class="my_link">超链接二</a></li>
+    <li><a href="javascript:;" class="my_link">超链接三</a></li>
+  </ul>
+</body>
+<script>
+  //原来的：给每个a绑定点击事件
+  // window.onload = function(){
+  //   var parentNode = document.getElementById("parent-list")
+  //   var aNodes = document.getElementsByTagName("a");
+  //   for(let i =0, l=aNodes.length; i<l; i++){
+  //     aNodes[i].onclick = function(){
+  //       console.log('我被点击了')
+  //     }
+  //   }
+  // }
+
+  //事件委托：利用冒泡机制
+
+  window.onload = function(){
+    document.getElementById("parent-list").addEventListener('click', function(event){
+      event = event || window.event;
+      // e.target 表示：触发事件的对象
+      //如果触发事件的对象是我们期望的元素，则执行否则不执行
+      // && event.target.className == 'my_link' 点击的是a标签才会执行下面的代码
+      if(event.target && event.target.className == 'my_link'){
+        console.log('我被点击了')
+      }
+    },false);
+  }
+</script>
+</html>

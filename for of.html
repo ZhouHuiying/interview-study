@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    
+    Object.prototype.objCustom = function() {};
+    Array.prototype.arrCustom = function() {};
+
+    let iterable = [3, 5, 7];
+    iterable.foo = 'hello';
+
+    for (let i in iterable) {
+      console.log(i); // logs 0, 1, 2, "foo", "arrCustom", "objCustom"
+    }
+
+    //这个循环类似于第一个，但是它使用hasOwnProperty() 来检查，
+    //如果找到的枚举属性是对象自己的（不是继承的）。如果是，该属性被记录。记录的属性是0, 1, 2和foo，因为它们是自身的属性（不是继承的）。属性arrCustom和objCustom不会被记录，因为它们是继承的。
+    for (let i in iterable) {
+      if (iterable.hasOwnProperty(i)) {
+        console.log(i); // logs 0, 1, 2, "foo"
+      }
+    }
+
+
+    //该循环迭代并记录iterable作为可迭代对象定义的迭代值，这些是数组元素 3, 5, 7，而不是任何对象的属性。
+    for (let i of iterable) {
+      console.log(i); // logs 3, 5, 7
+    }
+  </script>
+</body>
+</html>

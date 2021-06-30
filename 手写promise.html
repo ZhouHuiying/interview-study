@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Promise(executor) {
+      this.status = 'pending'
+      this.value = null
+      this.reason = null
+      this.onFulfilledArray = []
+      this.onRejectedArray = []
+      const resolve = value => {
+        setTimeout(() => {
+          if (this.status === 'pending') {
+            this.value =value
+            this.status = 'fulfilled'
+            this.onFulfilledArray.forEach(func => {
+              func(value)
+            });
+          }
+        });
+      }
+
+      const reject = reason => {
+        setTimeout(() => {
+          if (this.status === 'pending') {
+            this.reason = reason
+            this.status = 'rejected'
+            this.onRejectedArray.forEach(func => {
+              func(reason)
+            });
+          }
+        })
+      }
+      try{
+        executor(resolve, reject)
+      } catch(e) {
+        reject(e)
+      }
+    }
+    Promise.prototype.then = function(onfulfilled, onrejected) {
+      onfulfilled = typeof onfulfilled === 'function' ? onfulfilled : data => data
+      onrejected = typeof onrejected === 'function' ? onrejected : error => {throw error}
+      if (this.status === 'fulfilled') {
+        onfulfilled(this.value)
+      }
+      if (this.status === 'rejected') {
+        onrejected(this.reason)
+      }
+      if (this.status === 'pending') {
+        this.onFulfilledArray.push(onfulfilled)
+        this.onRejectedArray.push(onrejected)
+      }
+    }
+    let p = new Promise(function(resolve, reject) {
+      setTimeout(() => {
+        resolve('1090')
+      }, 1000);
+    })
+    p.then(res => {console.log(res)})
+  </script>
+</body>
+</html>

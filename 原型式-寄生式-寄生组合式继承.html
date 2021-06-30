@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //父类
+    function Person(name){ //给构造函数添加了参数
+      this.name = name;
+      this.sum = function(){
+        alert(this.name)
+      }
+    }
+    Person.prototype.age = 10; //给构造函数添加了原型属性
+
+    //原型式继承
+    function content(obj){
+      function F(){};
+      F.prototype = obj;
+      return new F()
+    }
+    var sup = new Person();
+    var sup1 = content(sup);
+    console.log(sup1.age); //10
+
+    //寄生式继承
+    function content(obj){
+      function F(){};
+      F.prototype = obj;
+      return new F()
+    }
+    var sup = new Person();
+
+    function subobject(obj){
+      var sub = content(obj);
+      sub.name = "gar"
+      return sub
+    }
+    var sup2 = subobject(sup);
+    console.log(typeof subobject) //function
+    console.log(typeof sup2) // object
+    console.log(sup2.name) //gar
+    
+    //寄生组合式继承
+    //寄生
+    function content(obj){
+      function F(){}
+      F.prototype = obj;
+      return new F();
+    }
+    var con = content(Person.prototype);
+    
+    function Sub(){
+      Person.call(this);
+    }
+    //重点
+    Sub.prototype = con;
+    con.constructor = Sub;
+    var sub1 = new Sub();
+    console.log(sub1.age);
+    
+  </script>
+</body>
+</html>

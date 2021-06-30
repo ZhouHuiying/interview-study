@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input id="input1" type="text">
+</body>
+<script>
+//全局function模式 -> namespace模式：简单对象封装 -> IIFE模式
+
+//IIFE模式
+(function (window){
+  let msg = 'module3';
+  function foo(){
+    console.log(msg)
+  }
+  window.module3 = { //向window暴露一个module3对象
+    foo: foo
+  }
+})(window)
+module3.foo()
+
+//IIFE增强：引入依赖
+(function (window, $){
+  let msg = 'module4';
+  function foo(){
+    console.log(msg)
+  }
+  window.module4 = { //向window暴露一个module3对象
+    foo: foo
+  }
+  $('body').css('background', 'red')
+})(window, jQuery)
+module4.foo()
+
+</script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function bubbleSort(arr){
+      let len = arr.length;
+      for(let i=0;i<len;i++){
+        // 如果从内循环减去外循环中已跑过的轮数，就可以避免内循环中所有不必要的比较
+        for(let j=0; j<len- 1 - i; j++){
+          if(arr[j] > arr[j+1]){
+            //如果前一个元素大于后一个元素，就交换
+            [arr[j], arr[j+1]] = [arr[j+1], arr[j]]
+            // let temp = arr[j];
+            // arr[j] = arr[j+1];
+            // arr[j+1] = temp
+          }
+        }
+      }
+      return arr;
+    }
+    console.log(bubbleSort([1,2,3,54,2,1,8]))
+  </script>
+</body>
+</html>

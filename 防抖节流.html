@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input id="input1" type="text">
+</body>
+<script>
+
+  const input1 = document.getElementById('input1');
+
+  // 防抖： 在事件被触发delay后再执行回调，如果dalay秒内被再次触发，就重新计时；
+  function debounce(fn, delay = 500) {
+    let timer = null;
+    return function(...args){
+      if(timer) clearTimeout(timer);
+      setTimeout(()=> {
+        fn.apply(this,args)
+      }, delay)
+    }   
+  }
+
+  // 节流： 规定一个单位时间，在这个单位时间内，只能有一次触发事件的回调函数执行，
+  // 如果在同一个单位时间内某事件被触发多次，只有一次能生效。
+  function throttle(fn,delay = 500){
+    let timer = null;
+    return function(...args){
+      if(timer) return;
+      setTimeout(()=>{
+        fn.apply(this,args)
+      }, delay)
+    }
+  }
+  
+  function print(){
+      console.log(input1.value);
+  }
+
+  input1.addEventListener('keyup', debounce(print))
+
+</script>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function quickSort(){
+      let array = [1,4,2,2,1,4,5,55];
+      quick(array, 0, array.length-1);
+      return array;
+    }
+
+    function quick(array, left, right){
+      let index;
+      if(array.length>0){
+        index = partition(array, left, right);
+        if(left<index-1){
+          quick(array,left,index-1)
+        }
+        if(index<right){
+          quick(array, index, right)
+        }
+      }
+    }
+
+    function partition(array,left, right){
+      var pivot = array[Math.floor((right+left)/2)],
+          i = left,
+          j = right;
+      while(i<=j){
+        while(array[i] < pivot){
+          i++;
+        }
+        while(array[j] > pivot){
+          j--;
+        }
+        if(i <= j){
+          swapQuickStort(array, i, j);
+          i++;
+          j--;
+        }
+      }
+      return i;
+    }
+    
+    function swapQuickStort(array,index1,index2){
+      let temp = array[index1];
+      array[index1] = array[index2];
+      array[index2] = temp
+    }
+
+    console.log(quickSort())
+  </script>
+</body>
+</html>

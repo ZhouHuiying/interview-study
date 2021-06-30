@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    //浅拷贝
+    function shallowCopy(object){
+      let newObject = Array.isArray(object) ? [] : {};
+      for(let key in object){
+        if(object.hasOwnProperty(key)){
+          newObject[key] = object[key];
+        }
+      }
+      return newObject;
+    }
+    let a1 = [{a:1},{b:2}];
+    let b1 = shallowCopy(a1)
+    console.log(b1)
+
+    //深拷贝
+    function deepCopy(object){
+      let newObject = Array.isArray(object) ? [] : {};
+      for(let key in object){
+        if(object.hasOwnProperty(key)){
+          newObject[key] = typeof object[key] === "object" ? deepCopy(object[key]) : object[key]
+        }
+      }
+      return newObject
+    }
+    let a2 = [{a:1},{b:2},{c:3}];
+    let b2 = deepCopy(a2)
+    console.log(b2)
+  </script>
+</body>
+</html>
